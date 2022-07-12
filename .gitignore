@@ -6,3 +6,13 @@
 .idea/modules.xml
 
 .idea/vcs.xml
+
+.idea/encodings.xml
+
+*.class
+
+算法/.gradle/6.8/javaCompile/
+
+*.lock
+
+*.bin
