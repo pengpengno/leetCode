@@ -77,7 +77,6 @@ public class DeleteNthFormLinkList {
         pre.next = pre.next.next;
         return head.next;
     }
-
     public static void main(String[] args) {
         ListNode tem = new ListNode();
         ListNode header = new ListNode(8,tem);
