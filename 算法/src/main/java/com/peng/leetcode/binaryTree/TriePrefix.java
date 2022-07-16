@@ -1,4 +1,4 @@
-package com.peng.leetcode;
+package com.peng.leetcode.binaryTree;
 
 /**
  * 208前缀树
