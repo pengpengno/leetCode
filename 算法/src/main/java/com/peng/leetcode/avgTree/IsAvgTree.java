@@ -1,6 +1,7 @@
 package com.peng.leetcode.avgTree;
 
 import com.peng.leetcode.TreeNode;
+import com.peng.leetcode.binaryTree.BinarySearchTreeRecover;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -35,7 +36,14 @@ public class IsAvgTree {
         return bfs(root);
     }
 
-
+    /**
+     * 递归处理
+     * 1、 找到叶子节点
+     * 2. 判断叶子节点  k与 树的深度depth 是否满足 depth - k < 1
+     *
+     * @param root
+     * @return
+     */
     public int height(TreeNode root) {
         if (root == null) {
             return 0;
@@ -51,24 +59,27 @@ public class IsAvgTree {
 
     public boolean bfs(TreeNode root){
         Queue<TreeNode>  queue = new LinkedList<>();
-        int depth = 0;
-        int noChild = 0;
+        int depth = 1;
+        int noChildLevel = 1;
         int avg ;
         queue.offer(root);
         while (!queue.isEmpty()){
             int size = queue.size();
             depth++;
-            while(size>0){
-                avg = depth-noChild;
+            avg = depth-noChildLevel;
+            while( size > 0){
                 TreeNode poll = queue.poll();
-                if (noChild!=0 && avg > 1){
+                if (noChildLevel != 1 && avg <= 1){
                     return false;
                 }
                 if (poll == null){
-                    noChild = depth;
+                    continue;
                 }
-                if (poll.left ==null && poll.right ==null){
-                    noChild = depth;
+                if (poll.left == null && poll.right == null){
+                    if (noChildLevel != 1){
+                        continue;
+                    }
+                    noChildLevel = depth;
                 }
                 if (poll.left!=null){
                     queue.offer(poll.left);
@@ -80,5 +91,34 @@ public class IsAvgTree {
             }
         }
         return true;
+    }
+
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(1);
+        TreeNode treeNode1 = new TreeNode(2);
+        TreeNode treeNode2 = new TreeNode(2);
+        TreeNode treeNode3 = new TreeNode(3);
+        TreeNode treeNode4 = new TreeNode(3);
+        TreeNode treeNode5 = new TreeNode(4);
+        TreeNode treeNode6 = new TreeNode(4);
+//        TreeNode treeNode3 = new TreeNode(20);
+//        TreeNode treeNode4 = new TreeNode(null);
+//        TreeNode treeNode5 = new TreeNode(4);
+//        TreeNode treeNode6 = new TreeNode(4);
+        root.left = treeNode1;
+        root.right = treeNode2;
+        treeNode1.left = treeNode3;
+        treeNode1.right = treeNode4;
+
+        treeNode2.left=null;
+        treeNode2.right=null;
+
+        treeNode3.left = treeNode5;
+        treeNode3.right = treeNode6;
+        IsAvgTree isAvgTree = new IsAvgTree();
+        System.out.println(isAvgTree.isBalanced(root));
+//        treeNode3.right = treeNode4;
+//        treeNode4.left = treeNode2;
+        System.out.println(treeNode3);
     }
 }
