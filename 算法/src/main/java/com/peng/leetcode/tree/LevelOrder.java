@@ -25,7 +25,7 @@ public class LevelOrder {
     private Queue<Node> deque = new LinkedList<>();
     private List<List<Integer>>  result = new LinkedList<>();
     public List<List<Integer>> levelOrder(Node root) {
-//        bfs 白能力啊
+//        bfs 遍历
         if(root == null){
             return result;
         }
@@ -43,9 +43,7 @@ public class LevelOrder {
                 for(Node node : poll.children){
                     if (node!= null){
                         deque.offer(node);
-                        // deque.addAll(node);
                     }
-
                 }
                 size--;
             }
